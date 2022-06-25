@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      - JEKYLL_BUILD_REVISION=dev
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./docs:/srv/www:delegated
+    command: ["jekyll", "serve", "--host", "0.0.0.0"]
+    ports:
+      - 4000:4000
